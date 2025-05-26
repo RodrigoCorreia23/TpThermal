@@ -1,0 +1,3 @@
+zona_atencao
+zona_critica
+zona_critica_extrema

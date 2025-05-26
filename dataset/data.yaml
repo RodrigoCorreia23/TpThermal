@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['Zona_Atenco', 'Zona_Critica', 'Zona_Extrema']
+
+roboflow:
+  workspace: thermal-synf9
+  project: my-first-project-zpttv
+  version: 1
+  license: Private
+  url: https://app.roboflow.com/thermal-synf9/my-first-project-zpttv/1
