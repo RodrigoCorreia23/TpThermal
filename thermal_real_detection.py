@@ -18,15 +18,15 @@ import glob
 try:
     from ultralytics import YOLO
     HAS_YOLO = True
-    print("✅ YOLO disponível")
+    print(" YOLO disponível")
 except ImportError:
     HAS_YOLO = False
-    print("❌ YOLO não encontrado")
+    print(" YOLO não encontrado")
 
 class RealThermalDetector:
     def __init__(self, root):
         self.root = root
-        self.root.title("🔥 Detector Térmico REAL - Análise com IA Treinada")
+        self.root.title(" Detector Térmico REAL - Análise com IA Treinada")
         self.root.geometry("1600x1000")
         self.root.configure(bg='#f0f8ff')
         
@@ -50,17 +50,17 @@ class RealThermalDetector:
         self.class_mapping = {
             0: {
                 "name": "zona_atencao", 
-                "display": "Zona de Atenção",
+                "display": "Zona de Atencao",
                 "color": (0, 255, 255),  # Amarelo em BGR
-                "severity": "ATENÇÃO",
+                "severity": "ATENCAO",
                 "temp_est": "35-45°C",
                 "priority": 3
             },
             1: {
                 "name": "zona_critica", 
-                "display": "Zona Crítica",
+                "display": "Zona Critica",
                 "color": (0, 0, 255),    # Vermelho em BGR
-                "severity": "CRÍTICO", 
+                "severity": "CRITICO", 
                 "temp_est": "45-60°C",
                 "priority": 2
             },
@@ -86,23 +86,23 @@ class RealThermalDetector:
         header_frame = ttk.Frame(main_frame)
         header_frame.pack(fill='x', pady=(0, 15))
         
-        title_label = ttk.Label(header_frame, text="🔥 Detector Térmico REAL com IA", 
+        title_label = ttk.Label(header_frame, text=" Detector Térmico REAL com IA", 
                                font=('Arial', 20, 'bold'))
         title_label.pack()
         
-        self.model_status = ttk.Label(header_frame, text="🔴 Carregando modelo...", 
+        self.model_status = ttk.Label(header_frame, text=" Carregando modelo...", 
                                      font=('Arial', 12))
         self.model_status.pack()
         
         # Controles
-        controls_frame = ttk.LabelFrame(main_frame, text="🎛️ Controles", padding=15)
+        controls_frame = ttk.LabelFrame(main_frame, text=" Controles", padding=15)
         controls_frame.pack(fill='x', pady=(0, 15))
         
         # Linha 1 - Botões principais
         btn_row1 = ttk.Frame(controls_frame)
         btn_row1.pack(fill='x', pady=(0, 10))
         
-        ttk.Button(btn_row1, text="📁 Nova Imagem", 
+        ttk.Button(btn_row1, text=" Nova Imagem", 
                   command=self.load_new_image, width=15).pack(side='left', padx=(0, 10))
         
         self.detect_btn = ttk.Button(btn_row1, text="🔍 DETECTAR PONTOS", 
@@ -110,10 +110,10 @@ class RealThermalDetector:
                                     width=20, state='disabled')
         self.detect_btn.pack(side='left', padx=(0, 10))
         
-        ttk.Button(btn_row1, text="📂 Analisar Pasta", 
+        ttk.Button(btn_row1, text=" Analisar Pasta", 
                   command=self.batch_analyze, width=15).pack(side='left', padx=(0, 10))
         
-        ttk.Button(btn_row1, text="💾 Salvar Resultados", 
+        ttk.Button(btn_row1, text=" Salvar Resultados", 
                   command=self.save_results, width=15).pack(side='left')
         
         # Linha 2 - Configurações
@@ -144,7 +144,7 @@ class RealThermalDetector:
         main_content.pack(fill='both', expand=True)
         
         # Frame da imagem
-        image_frame = ttk.LabelFrame(main_content, text="🖼️ Análise da Imagem", padding=10)
+        image_frame = ttk.LabelFrame(main_content, text=" Análise da Imagem", padding=10)
         image_frame.pack(side='left', fill='both', expand=True, padx=(0, 15))
         
         # Canvas
@@ -159,7 +159,7 @@ class RealThermalDetector:
         # Frame de resultados
         results_frame = ttk.LabelFrame(
             main_content,
-            text="🎯 Pontos Críticos Encontrados",
+            text=" Pontos Críticos Encontrados",
             padding=10,
             width=400   # largura em pixels
         )
@@ -174,14 +174,14 @@ class RealThermalDetector:
         self.detection_status.pack(pady=(0, 10))
         
         # Resumo
-        summary_frame = ttk.LabelFrame(results_frame, text="📊 Resumo", padding=10)
+        summary_frame = ttk.LabelFrame(results_frame, text=" Resumo", padding=10)
         summary_frame.pack(fill='x', pady=(0, 10))
         
         self.summary_text = tk.Text(summary_frame, height=6, font=('Arial', 9))
         self.summary_text.pack(fill='x')
         
         # Lista de detecções
-        detections_frame = ttk.LabelFrame(results_frame, text="🔍 Detecções", padding=10)
+        detections_frame = ttk.LabelFrame(results_frame, text=" Detecções", padding=10)
         detections_frame.pack(fill='both', expand=True, pady=(0, 10))
         
         # Treeview
@@ -211,9 +211,9 @@ class RealThermalDetector:
         action_frame = ttk.Frame(results_frame)
         action_frame.pack(fill='x')
         
-        ttk.Button(action_frame, text="📋 Relatório HTML", 
+        ttk.Button(action_frame, text=" Relatório HTML", 
                   command=self.generate_html_report).pack(fill='x', pady=2)
-        ttk.Button(action_frame, text="🖼️ Salvar Imagem", 
+        ttk.Button(action_frame, text=" Salvar Imagem", 
                   command=self.save_annotated_image).pack(fill='x', pady=2)
         
         self.update_summary()
@@ -221,7 +221,7 @@ class RealThermalDetector:
     def load_model_automatically(self):
         """Carrega o modelo YOLO automaticamente"""
         if not HAS_YOLO:
-            self.model_status.config(text="❌ YOLO não instalado! Execute: pip install ultralytics", 
+            self.model_status.config(text=" YOLO não instalado! Execute: pip install ultralytics", 
                                    foreground='red')
             return
         
@@ -239,69 +239,69 @@ class RealThermalDetector:
         for path in search_paths:
             if os.path.exists(path):
                 try:
-                    print(f"🔄 Tentando carregar modelo: {path}")
+                    print(f" Tentando carregar modelo: {path}")
                     self.model = YOLO(path)
                     self.model_path = path
                     self.model_loaded = True
                     model_found = True
                     
                     self.model_status.config(
-                        text=f"✅ Modelo carregado: {os.path.basename(path)}", 
+                        text=f" Modelo carregado: {os.path.basename(path)}", 
                         foreground='green'
                     )
                     
                     # Testar modelo
-                    print(f"📋 Classes do modelo: {self.model.names}")
-                    print(f"🎯 Modelo pronto para detecção!")
+                    print(f" Classes do modelo: {self.model.names}")
+                    print(f" Modelo pronto para detecção!")
                     
                     messagebox.showinfo("Modelo Carregado", 
-                                      f"✅ Modelo YOLO carregado com sucesso!\n\n"
-                                      f"📁 Arquivo: {path}\n"
-                                      f"🎯 Classes: {len(self.model.names)}\n"
-                                      f"🚀 Pronto para detectar pontos críticos!")
+                                      f" Modelo YOLO carregado com sucesso!\n\n"
+                                      f" Arquivo: {path}\n"
+                                      f" Classes: {len(self.model.names)}\n"
+                                      f" Pronto para detectar pontos críticos!")
                     break
                     
                 except Exception as e:
-                    print(f"❌ Erro ao carregar {path}: {e}")
+                    print(f" Erro ao carregar {path}: {e}")
                     continue
         
         if not model_found:
             # Busca recursiva
-            print("🔍 Procurando modelo recursivamente...")
+            print(" Procurando modelo recursivamente...")
             for root, dirs, files in os.walk("."):
                 if "best.pt" in files:
                     path = os.path.join(root, "best.pt")
                     try:
-                        print(f"🔄 Tentando carregar: {path}")
+                        print(f" Tentando carregar: {path}")
                         self.model = YOLO(path)
                         self.model_path = path
                         self.model_loaded = True
                         model_found = True
                         
                         self.model_status.config(
-                            text=f"✅ Modelo encontrado: {os.path.basename(path)}", 
+                            text=f" Modelo encontrado: {os.path.basename(path)}", 
                             foreground='green'
                         )
                         
                         messagebox.showinfo("Modelo Encontrado", 
-                                          f"✅ Modelo encontrado e carregado!\n\n{path}")
+                                          f" Modelo encontrado e carregado!\n\n{path}")
                         break
                         
                     except Exception as e:
-                        print(f"❌ Erro: {e}")
+                        print(f" Erro: {e}")
                         continue
         
         if not model_found:
             self.model_status.config(
-                text="❌ Modelo best.pt não encontrado! Coloque na pasta do programa", 
+                text=" Modelo best.pt não encontrado! Coloque na pasta do programa", 
                 foreground='red'
             )
             messagebox.showerror("Modelo Não Encontrado", 
-                                "❌ Não foi possível encontrar o modelo best.pt\n\n"
-                                "📋 Certifique-se de que o arquivo está em:\n"
+                                " Não foi possível encontrar o modelo best.pt\n\n"
+                                " Certifique-se de que o arquivo está em:\n"
                                 "• runs/detect/thermal_small2/weights/best.pt\n"
                                 "• ou na pasta raiz do programa\n\n"
-                                "🔧 O modelo é necessário para detectar pontos críticos!")
+                                " O modelo é necessário para detectar pontos críticos!")
     
     def load_new_image(self):
         """Carrega uma nova imagem para análise"""
@@ -317,7 +317,7 @@ class RealThermalDetector:
         
         if file_path:
             try:
-                print(f"📁 Carregando imagem: {file_path}")
+                print(f" Carregando imagem: {file_path}")
                 
                 # Carregar imagem
                 self.original_image = cv2.imread(file_path)
@@ -349,49 +349,49 @@ class RealThermalDetector:
                 self.update_tree()
                 self.update_summary()
                 
-                self.detection_status.config(text="✅ Imagem carregada - Pronta para análise")
+                self.detection_status.config(text=" Imagem carregada - Pronta para análise")
                 
-                print(f"✅ Imagem carregada com sucesso!")
+                print(f" Imagem carregada com sucesso!")
                 
             except Exception as e:
-                messagebox.showerror("Erro", f"❌ Erro ao carregar imagem:\n{str(e)}")
-                print(f"❌ Erro ao carregar imagem: {e}")
+                messagebox.showerror("Erro", f" Erro ao carregar imagem:\n{str(e)}")
+                print(f" Erro ao carregar imagem: {e}")
     
     def detect_critical_points(self):
         """Detecta pontos críticos usando o modelo YOLO treinado"""
         if not self.model_loaded:
-            messagebox.showwarning("Aviso", "❌ Modelo não carregado!")
+            messagebox.showwarning("Aviso", " Modelo não carregado!")
             return
         
         if self.original_image is None:
-            messagebox.showwarning("Aviso", "❌ Carregue uma imagem primeiro!")
+            messagebox.showwarning("Aviso", " Carregue uma imagem primeiro!")
             return
         
         def detection_thread():
             try:
-                print(f"🔍 Iniciando detecção com modelo YOLO...")
-                print(f"⚙️ Configurações: conf={self.confidence_threshold.get():.2f}, "
+                print(f" Iniciando detecção com modelo YOLO...")
+                print(f" Configurações: conf={self.confidence_threshold.get():.2f}, "
                       f"iou={self.iou_threshold.get():.2f}, size={self.img_size.get()}")
                 
                 # Atualizar status na UI
-                self.root.after(0, lambda: self.detect_btn.config(text="🔄 DETECTANDO...", state='disabled'))
-                self.root.after(0, lambda: self.detection_status.config(text="🔄 Analisando imagem com IA..."))
+                self.root.after(0, lambda: self.detect_btn.config(text=" DETECTANDO...", state='disabled'))
+                self.root.after(0, lambda: self.detection_status.config(text=" Analisando imagem com IA..."))
                 
-                # EXECUTAR DETECÇÃO REAL COM YOLO
+                # EXECUTAR DETECÇÃO COM YOLO
                 results = self.model(
                     self.current_image_path,
                     conf=self.confidence_threshold.get(),
                     iou=self.iou_threshold.get(), 
                     imgsz=self.img_size.get(),
-                    verbose=True  # Para debug
+                    verbose=True
                 )
                 
-                print(f"📊 Resultados brutos do YOLO: {len(results)} resultado(s)")
+                print(f" Resultados brutos do YOLO: {len(results)} resultado(s)")
                 
                 # Processar resultados REAIS
                 detections = self.process_yolo_results(results[0])
                 
-                print(f"🎯 Detecções processadas: {len(detections)}")
+                print(f" Detecções processadas: {len(detections)}")
                 
                 # Desenhar detecções na imagem
                 annotated_image = self.draw_real_detections(self.original_image.copy(), detections)
@@ -400,11 +400,11 @@ class RealThermalDetector:
                 self.root.after(0, lambda: self.detection_complete(detections, annotated_image))
                 
             except Exception as e:
-                error_msg = f"❌ Erro na detecção: {str(e)}"
+                error_msg = f" Erro na detecção: {str(e)}"
                 print(error_msg)
                 self.root.after(0, lambda: messagebox.showerror("Erro na Detecção", error_msg))
-                self.root.after(0, lambda: self.detect_btn.config(text="🔍 DETECTAR PONTOS", state='normal'))
-                self.root.after(0, lambda: self.detection_status.config(text="❌ Erro na detecção"))
+                self.root.after(0, lambda: self.detect_btn.config(text=" DETECTAR PONTOS", state='normal'))
+                self.root.after(0, lambda: self.detection_status.config(text=" Erro na detecção"))
         
         # Executar em thread separada
         threading.Thread(target=detection_thread, daemon=True).start()
@@ -421,9 +421,9 @@ class RealThermalDetector:
             confidences = results.boxes.conf.cpu().numpy()  # Confiança
             classes = results.boxes.cls.cpu().numpy().astype(int)  # Classes
             
-            print(f"📦 Boxes encontradas: {len(boxes)}")
-            print(f"🎯 Classes detectadas: {set(classes)}")
-            print(f"📊 Confianças: {confidences}")
+            print(f" Boxes encontradas: {len(boxes)}")
+            print(f" Classes detectadas: {set(classes)}")
+            print(f" Confianças: {confidences}")
             
             for i, (box, conf, cls) in enumerate(zip(boxes, confidences, classes)):
                 x1, y1, x2, y2 = box.astype(int)
@@ -452,22 +452,22 @@ class RealThermalDetector:
                     
                     detections.append(detection)
                     
-                    print(f"✅ Detecção {i+1}: {class_info['display']} "
+                    print(f" Detecção {i+1}: {class_info['display']} "
                           f"(conf: {conf:.3f}, pos: {x1},{y1}-{x2},{y2})")
                 else:
                     print(f"⚠️ Classe desconhecida: {cls}")
         else:
-            print("ℹ️ Nenhuma detecção encontrada pelo modelo")
+            print("ℹ Nenhuma detecção encontrada pelo modelo")
         
         # Ordenar por prioridade (extremo primeiro) e depois por confiança
         detections.sort(key=lambda x: (x['priority'], -x['confidence']))
         
-        print(f"🎯 Total de detecções válidas: {len(detections)}")
+        print(f" Total de detecções válidas: {len(detections)}")
         return detections
     
     def draw_real_detections(self, image, detections):
         """Desenha as detecções REAIS na imagem"""
-        print(f"🎨 Desenhando {len(detections)} detecções na imagem...")
+        print(f" Desenhando {len(detections)} detecções na imagem...")
         
         for detection in detections:
             x1, y1, x2, y2 = detection['x1'], detection['y1'], detection['x2'], detection['y2']
@@ -524,7 +524,7 @@ class RealThermalDetector:
                 font, 0.5, color, 1
             )
         
-        print(f"✅ Detecções desenhadas com sucesso!")
+        print(f" Detecções desenhadas com sucesso!")
         return image
     
     def detection_complete(self, detections, annotated_image):
@@ -545,12 +545,12 @@ class RealThermalDetector:
         
         # Atualizar status
         if len(detections) == 0:
-            self.detection_status.config(text="✅ Análise concluída - Nenhum ponto crítico detectado")
+            self.detection_status.config(text=" Análise concluída - Nenhum ponto crítico detectado")
             messagebox.showinfo("Análise Concluída", 
-                              "✅ Análise concluída!\n\n"
-                              "🎯 Nenhum ponto crítico detectado.\n"
-                              "📊 Equipamento aparenta estar normal.\n\n"
-                              "💡 Se esperava detecções, tente diminuir a sensibilidade.")
+                              " Análise concluída!\n\n"
+                              " Nenhum ponto crítico detectado.\n"
+                              " Equipamento aparenta estar normal.\n\n"
+                              " Se esperava detecções, tente diminuir a sensibilidade.")
         else:
             # Contar por severidade
             by_severity = {}
@@ -561,18 +561,18 @@ class RealThermalDetector:
             self.detection_status.config(text=f"⚠️ {len(detections)} pontos críticos detectados!")
             
             # Mensagem detalhada
-            message = f"⚠️ PONTOS CRÍTICOS DETECTADOS!\n\n"
-            message += f"🎯 Total: {len(detections)} pontos\n\n"
+            message = f" PONTOS CRÍTICOS DETECTADOS!\n\n"
+            message += f" Total: {len(detections)} pontos\n\n"
             
             for severity in ['EXTREMO', 'CRÍTICO', 'ATENÇÃO']:
                 count = by_severity.get(severity, 0)
                 if count > 0:
                     if severity == 'EXTREMO':
-                        message += f"🚨 {severity}: {count} (AÇÃO IMEDIATA!)\n"
+                        message += f" {severity}: {count} (AÇÃO IMEDIATA!)\n"
                     elif severity == 'CRÍTICO':
-                        message += f"🔴 {severity}: {count} (Manutenção necessária)\n"
+                        message += f" {severity}: {count} (Manutenção necessária)\n"
                     else:
-                        message += f"🟡 {severity}: {count} (Monitoramento)\n"
+                        message += f"{severity}: {count} (Monitoramento)\n"
             
             message += f"\n📋 Verifique os detalhes na lista à direita."
             
@@ -645,7 +645,7 @@ class RealThermalDetector:
         """Atualiza resumo"""
         if not self.detection_results:
             summary = """
-📊 RESUMO DA ANÁLISE
+ RESUMO DA ANÁLISE
 
 Status: Aguardando detecção
 Pontos encontrados: 0
@@ -655,7 +655,7 @@ Pontos encontrados: 0
 2. Clique em "DETECTAR PONTOS"
 3. Aguarde a análise da IA
 
-⚙️ Ajuste a sensibilidade se necessário
+ Ajuste a sensibilidade se necessário
             """
         else:
             total = len(self.detection_results)
@@ -668,13 +668,13 @@ Pontos encontrados: 0
             
             # Determinar status geral
             if by_severity.get('EXTREMO', 0) > 0:
-                status = "🚨 SITUAÇÃO CRÍTICA"
+                status = " SITUAÇÃO CRÍTICA"
             elif by_severity.get('CRÍTICO', 0) > 0:
-                status = "⚠️ ATENÇÃO NECESSÁRIA"
+                status = " ATENÇÃO NECESSÁRIA"
             elif by_severity.get('ATENÇÃO', 0) > 0:
-                status = "🔍 MONITORAMENTO"
+                status = " MONITORAMENTO"
             else:
-                status = "✅ NORMAL"
+                status = " NORMAL"
             
             summary = f"""
 📊 RESUMO DA ANÁLISE
@@ -682,12 +682,12 @@ Pontos encontrados: 0
 Status: {status}
 Pontos encontrados: {total}
 
-🎯 Por severidade:
-🚨 Extremos: {by_severity.get('EXTREMO', 0)}
-🔴 Críticos: {by_severity.get('CRÍTICO', 0)}
-🟡 Atenção: {by_severity.get('ATENÇÃO', 0)}
+ Por severidade:
+ Extremos: {by_severity.get('EXTREMO', 0)}
+ Críticos: {by_severity.get('CRÍTICO', 0)}
+ Atenção: {by_severity.get('ATENÇÃO', 0)}
 
-📁 Arquivo: {os.path.basename(self.current_image_path) if self.current_image_path else 'N/A'}
+ Arquivo: {os.path.basename(self.current_image_path) if self.current_image_path else 'N/A'}
             """
         
         self.summary_text.delete('1.0', tk.END)
@@ -707,15 +707,15 @@ Pontos encontrados: {total}
                 details = f"""
 DETECÇÃO #{detection['id']} - {detection['display_name']}
 
-🔥 Severidade: {detection['severity']}
-🌡️ Temperatura estimada: {detection['temp_estimate']}
-📊 Confiança: {detection['confidence']:.3f}
+ Severidade: {detection['severity']}
+ Temperatura estimada: {detection['temp_estimate']}
+ Confiança: {detection['confidence']:.3f}
 
-📍 Posição central: ({detection['center_x']}, {detection['center_y']})
-📏 Dimensões: {detection['width']} × {detection['height']} pixels
-📐 Área: {detection['area']} px²
+ Posição central: ({detection['center_x']}, {detection['center_y']})
+ Dimensões: {detection['width']} × {detection['height']} pixels
+ Área: {detection['area']} px²
 
-💡 Recomendação:
+ Recomendação:
 {self.get_recommendation(detection['severity'])}
                 """
                 
@@ -724,16 +724,16 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
     def get_recommendation(self, severity):
         """Recomendações por severidade"""
         recommendations = {
-            'EXTREMO': "🚨 AÇÃO IMEDIATA! Verificar equipamento urgentemente. Risco de falha iminente ou dano.",
-            'CRÍTICO': "⚠️ Atenção necessária. Agendar manutenção prioritária dentro de 7 dias.",
-            'ATENÇÃO': "🔍 Monitoramento recomendado. Incluir na próxima manutenção programada."
+            'EXTREMO': " AÇÃO IMEDIATA! Verificar equipamento urgentemente. Risco de falha iminente ou dano.",
+            'CRÍTICO': " Atenção necessária. Agendar manutenção prioritária dentro de 7 dias.",
+            'ATENÇÃO': " Monitoramento recomendado. Incluir na próxima manutenção programada."
         }
         return recommendations.get(severity, "Verificar equipamento conforme procedimentos.")
     
     def batch_analyze(self):
         """Análise em lote de uma pasta"""
         if not self.model_loaded:
-            messagebox.showwarning("Aviso", "❌ Modelo não carregado!")
+            messagebox.showwarning("Aviso", " Modelo não carregado!")
             return
         
         folder = filedialog.askdirectory(title="Selecionar Pasta com Imagens Térmicas")
@@ -749,7 +749,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
             image_files.extend(glob.glob(os.path.join(folder, ext.upper())))
         
         if not image_files:
-            messagebox.showwarning("Aviso", "❌ Nenhuma imagem encontrada na pasta!")
+            messagebox.showwarning("Aviso", " Nenhuma imagem encontrada na pasta!")
             return
         
         result = messagebox.askyesno("Análise em Lote", 
@@ -767,7 +767,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                 try:
                     # Atualizar status
                     self.root.after(0, lambda i=i, total=len(image_files): 
-                                   self.detection_status.config(text=f"🔄 Analisando {i+1}/{total}..."))
+                                   self.detection_status.config(text=f" Analisando {i+1}/{total}..."))
                     
                     # Detectar com YOLO
                     results = self.model(img_path, conf=self.confidence_threshold.get(), verbose=False)
@@ -782,7 +782,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                     })
                     
                 except Exception as e:
-                    print(f"❌ Erro em {img_path}: {e}")
+                    print(f" Erro em {img_path}: {e}")
             
             # Finalizar
             self.root.after(0, lambda: self.batch_complete(batch_results))
@@ -797,15 +797,15 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
         
         # Mostrar resumo
         summary = f"""
-🎉 ANÁLISE EM LOTE CONCLUÍDA!
+ ANÁLISE EM LOTE CONCLUÍDA!
 
-📊 Resumo:
+ Resumo:
 • Imagens analisadas: {total_images}
 • Total de pontos críticos: {total_detections}
 • Imagens com problemas: {problematic}
 • Taxa de problemas: {(problematic/total_images)*100:.1f}%
 
-🔥 Imagens mais críticas:
+ Imagens mais críticas:
 """
         
         # Top 5 mais problemáticas
@@ -814,7 +814,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
             if result['detections'] > 0:
                 summary += f"• {result['file']}: {result['detections']} pontos\n"
         
-        self.detection_status.config(text="✅ Análise em lote concluída!")
+        self.detection_status.config(text=" Análise em lote concluída!")
         messagebox.showinfo("Análise em Lote Concluída", summary)
         
         # Salvar relatório
@@ -833,14 +833,14 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                     'results': results
                 }, f, indent=2, ensure_ascii=False)
             
-            messagebox.showinfo("Relatório Salvo", f"📋 Relatório salvo em: {report_file}")
+            messagebox.showinfo("Relatório Salvo", f" Relatório salvo em: {report_file}")
         except Exception as e:
-            print(f"❌ Erro ao salvar relatório: {e}")
+            print(f" Erro ao salvar relatório: {e}")
     
     def save_results(self):
         """Salva resultados da análise atual"""
         if not self.detection_results:
-            messagebox.showwarning("Aviso", "❌ Nenhum resultado para salvar!")
+            messagebox.showwarning("Aviso", " Nenhum resultado para salvar!")
             return
         
         file_path = filedialog.asksaveasfilename(
@@ -869,15 +869,15 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                 with open(file_path, 'w', encoding='utf-8') as f:
                     json.dump(data, f, indent=2, ensure_ascii=False)
                 
-                messagebox.showinfo("Sucesso", f"✅ Resultados salvos em:\n{file_path}")
+                messagebox.showinfo("Sucesso", f" Resultados salvos em:\n{file_path}")
                 
             except Exception as e:
-                messagebox.showerror("Erro", f"❌ Erro ao salvar:\n{str(e)}")
+                messagebox.showerror("Erro", f" Erro ao salvar:\n{str(e)}")
     
     def generate_html_report(self):
         """Gera relatório HTML"""
         if not self.detection_results:
-            messagebox.showwarning("Aviso", "❌ Nenhum resultado para relatório!")
+            messagebox.showwarning("Aviso", " Nenhum resultado para relatório!")
             return
         
         file_path = filedialog.asksaveasfilename(
@@ -893,7 +893,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(html_content)
                 
-                messagebox.showinfo("Sucesso", f"✅ Relatório gerado:\n{file_path}")
+                messagebox.showinfo("Sucesso", f" Relatório gerado:\n{file_path}")
                 
                 # Abrir no navegador
                 try:
@@ -903,7 +903,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
                     pass
                 
             except Exception as e:
-                messagebox.showerror("Erro", f"❌ Erro ao gerar relatório:\n{str(e)}")
+                messagebox.showerror("Erro", f" Erro ao gerar relatório:\n{str(e)}")
     
     def create_html_report(self):
         """Cria relatório HTML detalhado"""
@@ -948,13 +948,13 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔥 Relatório de Detecção Térmica</h1>
+            <h1>Relatório de Detecção Térmica</h1>
             <h2>Análise com IA YOLO Treinada</h2>
             <p><strong>Data:</strong> {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</p>
         </div>
         
         <div class="model-info">
-            <h3>🤖 Informações do Modelo</h3>
+            <h3>Informações do Modelo</h3>
             <p><strong>Modelo:</strong> {os.path.basename(self.model_path) if self.model_path else 'N/A'}</p>
             <p><strong>Imagem:</strong> {os.path.basename(self.current_image_path) if self.current_image_path else 'N/A'}</p>
             <p><strong>Configurações:</strong> Confiança: {self.confidence_threshold.get():.2f}, Tamanho: {self.img_size.get()}px</p>
@@ -965,21 +965,21 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
         if by_severity.get('EXTREMO', 0) > 0:
             html += f"""
         <div class="alert alert-danger">
-            <h3>🚨 SITUAÇÃO CRÍTICA DETECTADA</h3>
+            <h3>SITUAÇÃO CRÍTICA DETECTADA</h3>
             <p><strong>{by_severity['EXTREMO']} pontos extremos</strong> detectados pela IA. Ação imediata necessária!</p>
         </div>
             """
         elif by_severity.get('CRÍTICO', 0) > 0:
             html += f"""
         <div class="alert alert-warning">
-            <h3>⚠️ ATENÇÃO NECESSÁRIA</h3>
+            <h3>ATENÇÃO NECESSÁRIA</h3>
             <p><strong>{by_severity['CRÍTICO']} pontos críticos</strong> detectados. Manutenção prioritária recomendada.</p>
         </div>
             """
         else:
             html += f"""
         <div class="alert alert-info">
-            <h3>ℹ️ MONITORAMENTO</h3>
+            <h3>ℹMONITORAMENTO</h3>
             <p>Apenas zonas de atenção detectadas. Monitoramento contínuo recomendado.</p>
         </div>
             """
@@ -1004,7 +1004,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
             </div>
         </div>
         
-        <h2>🎯 Detecções da IA</h2>
+        <h2>Detecções da IA</h2>
         <table>
             <thead>
                 <tr>
@@ -1040,13 +1040,13 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
             </tbody>
         </table>
         
-        <h2>🛠️ Recomendações Baseadas na IA</h2>
+        <h2> Recomendações Baseadas na IA</h2>
         <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
         """
         
         if by_severity.get('EXTREMO', 0) > 0:
             html += f"""
-            <h3>🚨 Ações Imediatas (Pontos Extremos):</h3>
+            <h3> Ações Imediatas (Pontos Extremos):</h3>
             <ul>
                 <li>Verificar equipamento IMEDIATAMENTE</li>
                 <li>Considerar desligamento de emergência</li>
@@ -1057,9 +1057,9 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
         
         if by_severity.get('CRÍTICO', 0) > 0:
             html += f"""
-            <h3>⚠️ Ações Prioritárias (Pontos Críticos):</h3>
+            <h3> Ações Prioritárias (Pontos Críticos):</h3>
             <ul>
-                <li>Agendar manutenção em até 7 dias</li>
+                <li>Agendar manutenção até 7 dias</li>
                 <li>Verificar conexões e isolamentos</li>
                 <li>Monitorar temperatura diariamente</li>
                 <li>Preparar plano de contingência</li>
@@ -1083,7 +1083,7 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
     def save_annotated_image(self):
         """Salva imagem com anotações"""
         if self.current_image is None:
-            messagebox.showwarning("Aviso", "❌ Nenhuma imagem para salvar!")
+            messagebox.showwarning("Aviso", " Nenhuma imagem para salvar!")
             return
         
         file_path = filedialog.asksaveasfilename(
@@ -1095,13 +1095,13 @@ DETECÇÃO #{detection['id']} - {detection['display_name']}
         if file_path:
             try:
                 cv2.imwrite(file_path, self.current_image)
-                messagebox.showinfo("Sucesso", f"✅ Imagem salva em:\n{file_path}")
+                messagebox.showinfo("Sucesso", f" Imagem salva em:\n{file_path}")
             except Exception as e:
-                messagebox.showerror("Erro", f"❌ Erro ao salvar:\n{str(e)}")
+                messagebox.showerror("Erro", f" Erro ao salvar:\n{str(e)}")
 
 def main():
     """Função principal"""
-    print("🚀 Iniciando Detector Térmico REAL...")
+    print(" Iniciando Detector Térmico REAL...")
     
     root = tk.Tk()
     app = RealThermalDetector(root)
@@ -1112,7 +1112,7 @@ def main():
     y = (root.winfo_screenheight() // 2) - (root.winfo_height() // 2)
     root.geometry(f"+{x}+{y}")
     
-    print("✅ Interface carregada!")
+    print(" Interface carregada!")
     root.mainloop()
 
 if __name__ == "__main__":
